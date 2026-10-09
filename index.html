@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ffe4ec">
+  <title>Aşkıma ❤️</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(135deg, #fff0f5, #ffc4d6, #ffe4ec);
+      color: #a52d59;
+    }
+
+    .card {
+      position: relative;
+      z-index: 2;
+      width: 90%;
+      max-width: 400px;
+      padding: 35px 24px;
+      text-align: center;
+      border: 1px solid #ffffffb0;
+      border-radius: 28px;
+      background: #ffffffd9;
+      box-shadow: 0 15px 50px #d94c7b25;
+      backdrop-filter: blur(10px);
+      animation: appear 1s ease;
+    }
+
+    .heart {
+      font-size: 70px;
+      animation: beat 1s infinite;
+    }
+
+    h1 {
+      font-size: 34px;
+      margin: 12px 0;
+    }
+
+    p {
+      line-height: 1.8;
+      font-size: 17px;
+    }
+
+    button {
+      margin-top: 18px;
+      padding: 15px 24px;
+      border: none;
+      border-radius: 30px;
+      background: #e75480;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 6px 18px #e7548050;
+    }
+
+    button:active {
+      transform: scale(.96);
+    }
+
+    #message {
+      display: none;
+      margin-top: 22px;
+      animation: appear .8s ease;
+    }
+
+    #message.show {
+      display: block;
+    }
+
+    .floating-heart {
+      position: fixed;
+      bottom: -40px;
+      z-index: 1;
+      pointer-events: none;
+      animation: floatUp linear forwards;
+      opacity: .85;
+    }
+
+    @keyframes beat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+    }
+
+    @keyframes floatUp {
+      to {
+        transform: translateY(-115vh) rotate(25deg);
+        opacity: 0;
+      }
+    }
+
+    @keyframes appear {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 400px) {
+      h1 { font-size: 29px; }
+      .card { padding: 28px 18px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="card">
+    <div class="heart">❤️</div>
+
+    <h1>Aşkım 💗</h1>
+
+    <p>
+      Sana küçük bir sürprizim var...
+      <br>
+      Hazır mısın? 🥹
+    </p>
+
+    <button id="surprise">Sürprizine dokun 💌</button>
+
+    <div id="message" aria-live="polite">
+      <h2>Sana bayılıyorum! 💖</h2>
+
+      <p>
+        Hep seni istiyorum...
+        <br><br>
+        Gülüşünü, sesini, gözlerini...
+        <br>
+        Kısacası her şeyinle seni istiyorum. ❤️
+      </p>
+
+      <p>
+        İyi ki varsın aşkım.
+        <br>
+        İyi ki hayatımdasın. 🫶🏻
+      </p>
+
+      <div style="font-size: 32px;">
+        💗 💋 💗
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const button = document.getElementById("surprise");
+    const message = document.getElementById("message");
+
+    button.addEventListener("click", () => {
+      message.classList.add("show");
+      button.textContent = "Seni çok seviyorum ❤️";
+      button.disabled = true;
+
+      for (let i = 0; i < 35; i++) {
+        setTimeout(createHeart, i * 90);
+      }
+    });
+
+    function createHeart() {
+      const heart = document.createElement("span");
+
+      heart.className = "floating-heart";
+
+      const hearts = ["❤️", "💗", "💕", "💖", "💘"];
+      heart.textContent =
+        hearts[Math.floor(Math.random() * hearts.length)];
+
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize =
+        (18 + Math.random() * 24) + "px";
+      heart.style.animationDuration =
+        (3 + Math.random() * 4) + "s";
+
+      document.body.appendChild(heart);
+
+      heart.addEventListener("animationend", () => {
+        heart.remove();
+      });
+    }
+
+    setInterval(createHeart, 650);
+  </script>
+</body>
+</html>
